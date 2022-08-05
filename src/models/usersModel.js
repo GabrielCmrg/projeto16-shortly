@@ -9,6 +9,11 @@ export const signupSchema = joi.object({
   confirmPassword: joi.string().trim().equal(joi.ref('password')),
 });
 
+export const signinSchema = joi.object({
+  email: joi.string().trim().email().required(),
+  password: joi.string().trim().required(),
+});
+
 export const createUser = async (user) => {
   const { name, email, password } = user;
   await connection.query(
