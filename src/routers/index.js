@@ -11,5 +11,6 @@ router.post(
   authMiddlewares.checkSignup,
   usersController.registerUser
 );
+router.post('/signin', authMiddlewares.checkSignin, usersController.loginUser);
 
 export default router;
