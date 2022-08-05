@@ -21,3 +21,11 @@ export const createUser = async (user) => {
     [name, email, password]
   );
 };
+
+export const getUserByEmail = async (email) => {
+  const { rows: user } = await connection.query(
+    'SELECT * FROM users WHERE $1',
+    [email]
+  );
+  return user[0];
+};
