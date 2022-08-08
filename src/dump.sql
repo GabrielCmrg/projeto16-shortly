@@ -29,7 +29,7 @@ CREATE TABLE "public"."links" (
     "shortUrl" character varying(8) NOT NULL,
     "url" "text" NOT NULL,
     "ownerId" integer NOT NULL,
-    "visits" integer DEFAULT 0 NOT NULL,
+    "visitCount" integer DEFAULT 0 NOT NULL,
     "createdAt" "date" DEFAULT "now"() NOT NULL
 );
 
@@ -113,7 +113,7 @@ ALTER TABLE ONLY "public"."users" ALTER COLUMN "id" SET DEFAULT "nextval"('"publ
 -- Data for Name: links; Type: TABLE DATA; Schema: public; Owner: dersdtcbgjbbvv
 --
 
-COPY "public"."links" ("id", "shortUrl", "url", "ownerId", "visits", "createdAt") FROM stdin;
+COPY "public"."links" ("id", "shortUrl", "url", "ownerId", "visitCount", "createdAt") FROM stdin;
 \.
 
 
@@ -136,7 +136,7 @@ SELECT pg_catalog.setval('"public"."links_id_seq"', 1, false);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dersdtcbgjbbvv
 --
 
-SELECT pg_catalog.setval('"public"."users_id_seq"', 1, false);
+SELECT pg_catalog.setval('"public"."users_id_seq"', 1, true);
 
 
 --
