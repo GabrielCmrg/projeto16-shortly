@@ -21,17 +21,10 @@ export const getLinkById = async (linkId) => {
   return link[0];
 };
 
-export const getLinkByShortUrl = async (shortUrl) => {
+export const incrementVisitCount = async (shortUrl) => {
   const { rows: link } = await connection.query(
-    'SELECT * FROM links WHERE "shortUrl" = $1',
+    'UPDATE links SET "visitCount" = "visitCount" + 1 WHERE "shortUrl" = $1 RETURNING *',
     [shortUrl]
   );
   return link[0];
-};
-
-export const incrementVisitCount = async (id) => {
-  await connection.query(
-    'UPDATE links SET "visitCount" = "visitCount" + 1 WHERE "id" = $1',
-    [id]
-  );
 };
