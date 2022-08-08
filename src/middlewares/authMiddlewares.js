@@ -33,7 +33,7 @@ export const checkAuthHeader = (req, res, next) => {
     return res.status(401).json(validation.error);
   }
 
-  const token = validation.value.authentication.replace('Bearer ', '');
+  const token = validation.value.authorization.replace('Bearer ', '');
   const { JWT_SECRET_KEY } = process.env;
   try {
     const owner = jwt.verify(token, JWT_SECRET_KEY);
