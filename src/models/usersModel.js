@@ -14,6 +14,16 @@ export const signinSchema = joi.object({
   password: joi.string().trim().required(),
 });
 
+export const authHeaderSchema = joi
+  .object({
+    authorization: joi
+      .string()
+      .trim()
+      .pattern(/^Bearer .+$/)
+      .required(),
+  })
+  .unknown(true);
+
 export const createUser = async (user) => {
   const { name, email, password } = user;
   await connection.query(

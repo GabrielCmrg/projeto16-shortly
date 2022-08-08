@@ -14,3 +14,4 @@ const connection = new Pool({
 export { connection };
 
 export * as usersModel from './usersModel.js';
+export * as urlsModel from './urlsModel.js';

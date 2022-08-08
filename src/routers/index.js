@@ -1,7 +1,7 @@
 import express from 'express';
 
-import { authMiddlewares } from '../middlewares/index.js';
-import { usersController } from '../controllers/index.js';
+import { authMiddlewares, urlsMiddlewares } from '../middlewares/index.js';
+import { urlsController, usersController } from '../controllers/index.js';
 
 const router = express.Router();
 
@@ -12,5 +12,21 @@ router.post(
   usersController.registerUser
 );
 router.post('/signin', authMiddlewares.checkSignin, usersController.loginUser);
+
+// urls routes
+router.post(
+  '/urls/shorten',
+  authMiddlewares.checkAuthHeader,
+  urlsMiddlewares.checkUrl,
+  urlsController.shorten
+);
+router.get('/urls/:urlId', urlsController.retrieveLink);
+router.get('/urls/open/:shortUrl', urlsController.redirect);
+router.delete(
+  '/urls/:urlId',
+  authMiddlewares.checkAuthHeader,
+  urlsMiddlewares.checkOwner,
+  urlsController.deleteLink
+);
 
 export default router;
