@@ -114,6 +114,7 @@ ALTER TABLE ONLY "public"."users" ALTER COLUMN "id" SET DEFAULT "nextval"('"publ
 --
 
 COPY "public"."links" ("id", "shortUrl", "url", "ownerId", "visitCount", "createdAt") FROM stdin;
+1	4w3CR3hV	https://google.com	9	1	2022-08-08
 \.
 
 
@@ -122,6 +123,9 @@ COPY "public"."links" ("id", "shortUrl", "url", "ownerId", "visitCount", "create
 --
 
 COPY "public"."users" ("id", "name", "email", "password", "createdAt") FROM stdin;
+2	luquinhas	l@g.com	$2b$10$3d0hvwodbLhQZ0mXw7vaLOnnYr8iLeaiuCPMG.JbrMkU2VX3CxrCC	2022-08-08
+4	<h1></h1>	joao@driven.com.br	$2b$10$GS3wQiypZePtbR7sudXL6u4d4wQU8dQCN61fuddwGmrsrLnLvoruC	2022-08-08
+9	luquinhas	ls@g.com	$2b$10$BoDye3jOAZkalHEj4pA1g.TBjITE5YEi4gdJ16OFMunEgAvCyFCEK	2022-08-08
 \.
 
 
@@ -129,14 +133,14 @@ COPY "public"."users" ("id", "name", "email", "password", "createdAt") FROM stdi
 -- Name: links_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dersdtcbgjbbvv
 --
 
-SELECT pg_catalog.setval('"public"."links_id_seq"', 1, false);
+SELECT pg_catalog.setval('"public"."links_id_seq"', 1, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dersdtcbgjbbvv
 --
 
-SELECT pg_catalog.setval('"public"."users_id_seq"', 1, true);
+SELECT pg_catalog.setval('"public"."users_id_seq"', 9, true);
 
 
 --
