@@ -8,7 +8,7 @@ export const urlSchema = joi.object({
 export const createLink = async (linkObject) => {
   const { shortUrl, url, ownerId } = linkObject;
   await connection.query(
-    'INSERT INTO links ("shortUrl", "url", "ownderId") VALUES ($1, $2, $3)',
+    'INSERT INTO links ("shortUrl", "url", "ownerId") VALUES ($1, $2, $3)',
     [shortUrl, url, ownerId]
   );
 };
