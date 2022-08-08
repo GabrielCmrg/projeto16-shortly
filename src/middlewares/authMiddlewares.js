@@ -21,3 +21,14 @@ export const checkSignin = (req, res, next) => {
   next();
   return true;
 };
+
+export const checkAuthHeader = (req, res, next) => {
+  const validation = usersModel.authHeaderSchema.validate(req.headers);
+  if (validation.error) {
+    return res.status(401).json(validation.error);
+  }
+
+  res.locals.token = validation.value.authentication.replace('Bearer ', '');
+  next();
+  return true;
+};
