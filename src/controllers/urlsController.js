@@ -28,3 +28,20 @@ export const retrieveLink = async (req, res) => {
     return res.status(500).send('Algo deu errado ao buscar pela URL.');
   }
 };
+
+export const redirect = async (req, res) => {
+  const { shortUrl } = req.params;
+  try {
+    const link = await urlsModel.incrementVisitCount(shortUrl);
+    if (!link) {
+      return res
+        .status(404)
+        .send('Não foi encontrado um link com esse encurtador.');
+    }
+
+    return res.redirect(200, link.url);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send('Algo deu errado ao buscar pela sua url.');
+  }
+};
