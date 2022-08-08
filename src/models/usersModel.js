@@ -61,7 +61,7 @@ export const getUserMetrics = async (userId) => {
       FROM users
       LEFT JOIN links
       ON links."ownerId" = users."id"
-      WHERE users."id" = 2
+      WHERE users."id" = $1
       GROUP BY users."id"
     `,
     [userId]
