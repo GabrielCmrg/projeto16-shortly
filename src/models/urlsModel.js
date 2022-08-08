@@ -28,3 +28,10 @@ export const getLinkByShortUrl = async (shortUrl) => {
   );
   return link[0];
 };
+
+export const incrementVisitCount = async (id) => {
+  await connection.query(
+    'UPDATE links SET "visitCount" = "visitCount" + 1 WHERE "id" = $1',
+    [id]
+  );
+};
