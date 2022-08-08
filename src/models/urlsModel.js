@@ -28,3 +28,7 @@ export const incrementVisitCount = async (shortUrl) => {
   );
   return link[0];
 };
+
+export const deleteLinkById = async (urlId) => {
+  await connection.query('DELETE FROM links WHERE "id" = $1', [urlId]);
+};
