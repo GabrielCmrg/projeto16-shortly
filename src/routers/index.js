@@ -29,4 +29,11 @@ router.delete(
   urlsController.deleteLink
 );
 
+// users routes
+router.get(
+  '/users/me',
+  authMiddlewares.checkAuthHeader,
+  usersController.retrieveUserMetrics
+);
+
 export default router;
