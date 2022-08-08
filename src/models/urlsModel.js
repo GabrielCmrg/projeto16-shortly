@@ -15,7 +15,7 @@ export const createLink = async (linkObject) => {
 
 export const getLinkById = async (linkId) => {
   const { rows: link } = await connection.query(
-    'SELECT "id", "shortUrl", "url" FROM links WHERE "id" = $1',
+    'SELECT * FROM links WHERE "id" = $1',
     [linkId]
   );
   return link[0];

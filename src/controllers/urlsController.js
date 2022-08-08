@@ -22,7 +22,8 @@ export const retrieveLink = async (req, res) => {
       return res.status(404).send('Não foi encontrado um url com esse id.');
     }
 
-    return res.json(link);
+    const { id, shortUrl, url } = link;
+    return res.json({ id, shortUrl, url });
   } catch (error) {
     console.error(error);
     return res.status(500).send('Algo deu errado ao buscar pela URL.');
