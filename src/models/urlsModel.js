@@ -20,3 +20,11 @@ export const getLinkById = async (linkId) => {
   );
   return link[0];
 };
+
+export const getLinkByShortUrl = async (shortUrl) => {
+  const { rows: link } = await connection.query(
+    'SELECT * FROM links WHERE "shortUrl" = $1',
+    [shortUrl]
+  );
+  return link[0];
+};
