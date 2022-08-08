@@ -46,7 +46,7 @@ export const getUserMetrics = async (userId) => {
       SELECT 
         users."id",
         users."name",
-        COALESCE(SUM(links."visitCount"), 0) AS "visitCount",
+        COALESCE(SUM(links."visitCount")::int, 0) AS "visitCount",
         json_agg(
           json_build_object(
             'id', links."id",
@@ -64,4 +64,23 @@ export const getUserMetrics = async (userId) => {
     [userId]
   );
   return user[0];
+};
+
+export const getAllUsersMetrics = async () => {
+  const { rows: users } = await connection.query(
+    `
+      SELECT 
+        users."id",
+        users."name",
+        COALESCE(COUNT(links."visitCount")::int, 0) AS "linksCount",
+        COALESCE(SUM(links."visitCount")::int, 0) AS "visitCount"
+      FROM users
+      LEFT JOIN links
+      ON links."ownerId" = users."id"
+      GROUP BY users."id"
+      ORDER BY "visitCount" DESC
+      LIMIT 10
+    `
+  );
+  return users;
 };
