@@ -45,3 +45,14 @@ export const redirect = async (req, res) => {
     return res.status(500).send('Algo deu errado ao buscar pela sua url.');
   }
 };
+
+export const deleteLink = async (req, res) => {
+  const { link } = res.locals;
+  try {
+    await urlsModel.deleteLinkById(link.id);
+    return res.status(204).send('Link apagado com sucesso.');
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send('Algo deu errado ao apagar seu link.');
+  }
+};
