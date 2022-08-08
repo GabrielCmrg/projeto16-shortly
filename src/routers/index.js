@@ -21,5 +21,6 @@ router.post(
   urlsController.shorten
 );
 router.get('/urls/:urlId', urlsController.retrieveLink);
+router.get('/urls/open/:shortUrl', urlsController.redirect);
 
 export default router;
