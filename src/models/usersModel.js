@@ -34,7 +34,7 @@ export const createUser = async (user) => {
 
 export const getUserByEmail = async (email) => {
   const { rows: user } = await connection.query(
-    'SELECT * FROM users WHERE $1',
+    'SELECT * FROM users WHERE "email" = $1',
     [email]
   );
   return user[0];
@@ -47,14 +47,17 @@ export const getUserMetrics = async (userId) => {
         users."id",
         users."name",
         COALESCE(SUM(links."visitCount")::int, 0) AS "visitCount",
-        json_agg(
-          json_build_object(
-            'id', links."id",
-            'shortUrl', links."shortUrl",
-            'url', links."url",
-            'visitCount', links."visitCount"
-          )
-        ) AS "shortenedUrls"
+        CASE WHEN COUNT(links."visitCount") > 0
+          THEN json_agg(
+            json_build_object(
+              'id', links."id",
+              'shortUrl', links."shortUrl",
+              'url', links."url",
+              'visitCount', links."visitCount"
+            )
+          ) 
+          ELSE '[]'
+        END AS "shortenedUrls"
       FROM users
       LEFT JOIN links
       ON links."ownerId" = users."id"
