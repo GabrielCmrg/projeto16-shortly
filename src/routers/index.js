@@ -35,5 +35,6 @@ router.get(
   authMiddlewares.checkAuthHeader,
   usersController.retrieveUserMetrics
 );
+router.get('/ranking', usersController.retrieveAllUsersMetrics);
 
 export default router;
