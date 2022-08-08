@@ -22,5 +22,11 @@ router.post(
 );
 router.get('/urls/:urlId', urlsController.retrieveLink);
 router.get('/urls/open/:shortUrl', urlsController.redirect);
+router.delete(
+  '/urls/:urlId',
+  authMiddlewares.checkAuthHeader,
+  urlsMiddlewares.checkOwner,
+  urlsController.deleteLink
+);
 
 export default router;
