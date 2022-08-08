@@ -38,3 +38,19 @@ export const loginUser = async (req, res) => {
     return res.status(500).send('Algo deu errado ao consultar o usuário.');
   }
 };
+
+export const retrieveUserMetrics = async (req, res) => {
+  const { ownerId } = res.locals;
+  try {
+    const userMetrics = await usersModel.getUserMetrics(ownerId);
+    if (!userMetrics) {
+      return res.status(404).send('Usuário não encontrado.');
+    }
+    return res.json(userMetrics);
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .send('Algo deu errado ao buscar as informações do usuário.');
+  }
+};
