@@ -39,7 +39,7 @@ export const redirect = async (req, res) => {
         .send('Não foi encontrado um link com esse encurtador.');
     }
 
-    return res.redirect(200, link.url);
+    return res.redirect(link.url);
   } catch (error) {
     console.error(error);
     return res.status(500).send('Algo deu errado ao buscar pela sua url.');
