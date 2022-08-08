@@ -20,5 +20,6 @@ router.post(
   urlsMiddlewares.checkUrl,
   urlsController.shorten
 );
+router.get('/urls/:urlId', urlsController.retrieveLink);
 
 export default router;
