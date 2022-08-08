@@ -39,3 +39,48 @@ export const getUserByEmail = async (email) => {
   );
   return user[0];
 };
+
+export const getUserMetrics = async (userId) => {
+  const { rows: user } = await connection.query(
+    `
+      SELECT 
+        users."id",
+        users."name",
+        COALESCE(SUM(links."visitCount")::int, 0) AS "visitCount",
+        json_agg(
+          json_build_object(
+            'id', links."id",
+            'shortUrl', links."shortUrl",
+            'url', links."url",
+            'visitCount', links."visitCount"
+          )
+        ) AS "shortenedUrls"
+      FROM users
+      LEFT JOIN links
+      ON links."ownerId" = users."id"
+      WHERE users."id" = 2
+      GROUP BY users."id"
+    `,
+    [userId]
+  );
+  return user[0];
+};
+
+export const getAllUsersMetrics = async () => {
+  const { rows: users } = await connection.query(
+    `
+      SELECT 
+        users."id",
+        users."name",
+        COALESCE(COUNT(links."visitCount")::int, 0) AS "linksCount",
+        COALESCE(SUM(links."visitCount")::int, 0) AS "visitCount"
+      FROM users
+      LEFT JOIN links
+      ON links."ownerId" = users."id"
+      GROUP BY users."id"
+      ORDER BY "visitCount" DESC
+      LIMIT 10
+    `
+  );
+  return users;
+};
